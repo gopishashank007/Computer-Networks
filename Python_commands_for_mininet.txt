@@ -1,0 +1,60 @@
+1a)
+Simulate the following network using Mininet.
+ You need to demonstrate that “h1” and “h2” can ping each other for the switching and routing scenarios depicted below. 
+You will need to submit the switch flow commands needed to enable ping between “h1” and “h2” and ping snap-shots for each of the two scenarios.
+sudo mn --topo single,2 --mac --switch ovsk --controller remote
+s1 dpctl add-flow tcp:127.0.0.1:6634 in_port=1,actions:output=2
+s1 dpctl add-flow tcp:127.0.0.1:6634 in_port=2,actions:output=1	
+ping 10.0.0.1 in h2
+ping 10.0.0.2 in h1
+
+
+
+--------------------------------------------------------------------------------------
+1b)
+ 
+------------------------------------------------------------------
+from mininet.topo import Topo
+from mininet.topo import Topo
+class MyTopo( Topo ):
+    "Simple topology example."
+
+    def __init__( self ):
+        "Create custom topo."
+
+        # Initialize topology
+        Topo.__init__( self )
+
+        # Add hosts and switches
+
+        defaultIP = '10.1.1.1/24'  # IP address for r0-eth1
+        router = self.addNode( 'r0', ip=defaultIP )
+
+        h1 = self.addHost( 'h1', ip='10.1.1.2/24', defaultRoute='via 10.1.1.1' )
+        h2 = self.addHost( 'h2', ip='10.2.2.2/24', defaultRoute='via 10.2.2.1' )
+
+
+        self.addLink( h1, router, intfName2='r0-eth0', params2={ 'ip' : '10.1.1.1/24' } )
+        self.addLink( h2, router, intfName2='r0-eth1', params2={ 'ip' : '10.2.2.1/24' } )
+
+
+
+
+-------------------------------------------------------------------------------------
+sudo mn  --custom testtopo.py --topo mytopo --mac --controller remote
+r0 sysctl net.ipv4.ip_forward=1
+h1 ping h2
+
+-------------------------------------------------------------------------------
+2) sudo mn --custom 3.py --topo mytopo --mac --controller remote
+pingall
+
+   ./pox.py log.level --DEBUG misc.three
+
+pingall
+
+
+
+
+
+
