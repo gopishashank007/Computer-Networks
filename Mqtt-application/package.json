@@ -1,0 +1,15 @@
+{
+  "name": "mqttApp",
+  "version": "0.1.0",
+  "description": "",
+  "main": "client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shashank Kasinadhuni",
+  "license": "MIT",
+  "dependencies": {
+    "mosca": "^2.7.0",
+    "mqtt": "^0.3.12"
+  }
+}
